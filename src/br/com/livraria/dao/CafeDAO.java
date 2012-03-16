@@ -12,13 +12,13 @@ public class CafeDAO implements InterfaceDAO<Cafe>{
 	
 	private List<Cafe> list;
 	private Serial<Cafe> serial;
-	private String arq;
+	private String arqVend;
 	
 	public CafeDAO() {
 		list = new ArrayList<Cafe>();
 		serial = new Serial<Cafe>();
-		arq = "arquivos/livros.dat";
-		list = serial.deserializa(arq);
+		arqVend = "arquivos/vendaCafe.dat";
+		//list = serial.deserializa(arqVend);
 	}
 	
 	
@@ -33,12 +33,12 @@ public class CafeDAO implements InterfaceDAO<Cafe>{
 
 
 	public String getArq() {
-		return arq;
+		return arqVend;
 	}
 
 
 	public void setArq(String arq) {
-		this.arq = arq;
+		this.arqVend = arq;
 	}
 
 
@@ -74,7 +74,7 @@ public class CafeDAO implements InterfaceDAO<Cafe>{
 				l.setQtde(sc.nextInt());
 				sc.nextLine();
 				
-				serial.serializar(list, arq);
+				serial.serializar(list, arqVend);
 				break;
 			}
 		}
@@ -84,7 +84,7 @@ public class CafeDAO implements InterfaceDAO<Cafe>{
 	@Override
 	public void inserir(Cafe l) {
 		this.list.add(l);
-		serial.serializar(list, arq);
+		serial.serializar(list, arqVend);
 	}
 
 	@Override
@@ -94,7 +94,7 @@ public class CafeDAO implements InterfaceDAO<Cafe>{
 				list.remove(l);
 				System.out.println("Cafe " + l.getNome() 
 						+ " excluído com sucesso");
-				serial.serializar(list, arq);
+				serial.serializar(list, arqVend);
 				return;
 			}
 		}
