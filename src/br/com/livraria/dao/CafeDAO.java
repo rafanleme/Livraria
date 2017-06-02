@@ -65,12 +65,6 @@ public class CafeDAO implements InterfaceDAO<Cafe>{
 				
 				System.out.println("Nome do livro: ");
 				l.setNome(sc.nextLine());
-				
-				System.out.println("Autor: ");
-				l.setAutor(sc.nextLine());
-				
-				System.out.println("Editora: ");
-				l.setAutor(sc.nextLine());
 								
 				System.out.println("Preço: ");
 				l.setPreco(sc.nextDouble());
