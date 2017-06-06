@@ -11,8 +11,7 @@ public class MenuPrincipal {
 			System.out.println("Menu Principal");
 			System.out.println("1- Cadastro");
 			System.out.println("2- Vendas");
-			//System.out.println("3- Tecnicos");
-			//System.out.println("4- Sair");
+			System.out.println("9- Sair");
 			Scanner sc = new Scanner(System.in);
 			String opcao = sc.nextLine();
 			

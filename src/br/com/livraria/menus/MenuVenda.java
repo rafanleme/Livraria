@@ -1,9 +1,12 @@
 package br.com.livraria.menus;
 
+import java.util.List;
 import java.util.Scanner;
 
 import br.com.livraria.dao.CafeDAO;
+import br.com.livraria.dao.LivroDAO;
 import br.com.livraria.entidades.Cafe;
+import br.com.livraria.entidades.Livro;
 
 public class MenuVenda {
 
@@ -11,24 +14,65 @@ public class MenuVenda {
 		while(true){
 			System.out.println("Menu de Vendas");
 			System.out.println("1- Vender Cafe");
-			//System.out.println("2- Incluir");
-			//System.out.println("3- Alterar");
-			//System.out.println("4- Excluir");
-			System.out.println("5- Voltar");
+			System.out.println("2- Vender Livro");
+			System.out.println("3- Listar Vendas");
+			System.out.println("9- Voltar");
 			String opcao = sc.nextLine();
 			if(opcao.equals("1")){
 				this.venderCafe(sc);
+				break;
 			}else if(opcao.equals("2")){
-				//this.incluir(sc);
+				this.venderLivro(sc);
+				break;
 			}else if(opcao.equals("3")){
-				//this.alterar(sc);
-			}else if(opcao.equals("4")){
-				//this.excluir(sc);
+				this.listar(sc);
+				break;
 			}
-			else if(opcao.equals("5")){
+			else if(opcao.equals("9")){
 				return;
 			}
 		}
+	}
+
+	private void venderLivro(Scanner sc) {
+		LivroDAO ldao = new LivroDAO();
+		System.out.println("Didite o codigo do livro: ");
+		
+		String resp = ldao.vender(sc, sc.nextLine());
+		
+		System.out.println(resp);
+		
+	}
+
+	private void listar(Scanner sc) {
+		LivroDAO ldao = new LivroDAO();
+		List<Livro> listL = ldao.getListV();
+		
+		System.out.println("Vendas de Livros");
+		if (!listL.isEmpty()){		
+			for(Livro l : listL){
+				System.out.println("Código: " + l.getCodigo()
+						+ " Livro: " + l.getNome()
+						+ " Autor: " + l.getAutor()
+						+ " Preco: " + l.getPreco());
+			}
+		}else{
+			System.out.println("Nenhuma venda realizada");
+		}
+		System.out.println("");
+		CafeDAO cdao = new CafeDAO();
+		List<Cafe> listC = cdao.getList();
+		System.out.println("Vendas de Cafés");
+		if (!listC.isEmpty()){		
+			for(Cafe c : listC){
+				System.out.println("Código: " + c.getCodigo()
+						+ " Tamanho: " + c.getTamanho()
+						+ " Preco: " + c.getPreco());
+			}
+		}else{
+			System.out.println("Nenhuma venda realizada");
+		}
+		
 	}
 
 	private void venderCafe(Scanner sc) {

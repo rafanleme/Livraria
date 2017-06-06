@@ -18,7 +18,7 @@ public class CafeDAO implements InterfaceDAO<Cafe>{
 		list = new ArrayList<Cafe>();
 		serial = new Serial<Cafe>();
 		arqVend = "arquivos/vendaCafe.dat";
-		//list = serial.deserializa(arqVend);
+		list = serial.deserializa(arqVend);
 	}
 	
 	

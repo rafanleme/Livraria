@@ -3,6 +3,8 @@ package br.com.livraria.menus;
 import java.util.List;
 import java.util.Scanner;
 
+import javax.swing.plaf.synth.SynthSeparatorUI;
+
 import br.com.livraria.dao.LivroDAO;
 import br.com.livraria.entidades.Livro;
 import br.com.livraria.entidades.Produto;
@@ -16,7 +18,8 @@ public class MenuLivros {
 			System.out.println("2- Incluir");
 			System.out.println("3- Alterar");
 			System.out.println("4- Excluir");
-			System.out.println("5- Voltar");
+			System.out.println("5- Alterar Qtde");
+			System.out.println("9- Voltar");
 			String opcao = sc.nextLine();
 			if(opcao.equals("1")){
 				this.listar(sc);
@@ -26,13 +29,24 @@ public class MenuLivros {
 				this.alterar(sc);
 			}else if(opcao.equals("4")){
 				this.excluir(sc);
+			}else if(opcao.equals("5")){
+				this.alterarQtde(sc);
 			}
-			else if(opcao.equals("5")){
+
+			else if(opcao.equals("9")){
 				return;
 			}
 		}
 	}
 	
+	private void alterarQtde(Scanner sc) {
+		System.out.println("Digite o código do livro");
+		String cod = sc.nextLine();
+		LivroDAO dao = new LivroDAO();
+		System.out.println(dao.alterarQtde(cod, sc));
+		
+	}
+
 	private void excluir(Scanner sc) {
 		System.out.println("Codigo a excluir: ");
 		String cod = sc.nextLine();
@@ -80,7 +94,9 @@ public class MenuLivros {
 				System.out.println("Código: " + l.getCodigo()
 						+ " Livro: " + l.getNome()
 						+ " Autor: " + l.getAutor()
+						+ " Qtde: " + l.getQtde()
 						+ " Preco: " + l.getPreco());
+						
 			}
 		}else{
 			System.out.println("Nenhum livro cadastrado");

@@ -10,15 +10,19 @@ import br.com.livraria.interfaces.InterfaceDAO;
 
 public class LivroDAO implements InterfaceDAO<Livro>{
 	
-	private List<Livro> list;
+	private List<Livro> list, listV;
 	private Serial<Livro> serial;
 	private String arq;
+	private String arqVenda;
 	
 	public LivroDAO() {
-		list = new ArrayList<Livro>();
 		serial = new Serial<Livro>();
+		list = new ArrayList<Livro>();
 		arq = "arquivos/livros.dat";
 		list = serial.deserializa(arq);
+		arqVenda = "arquivos/vendaLivro.dat";
+		listV = new ArrayList<Livro>();
+		listV = serial.deserializa(arqVenda);
 	}
 	
 	
@@ -45,7 +49,11 @@ public class LivroDAO implements InterfaceDAO<Livro>{
 	public List<Livro> getList() {
 		return list;
 	}
-
+	
+	public List<Livro> getListV() {
+		return listV;
+	}
+	
 	public void setList(ArrayList<Livro> list) {
 		this.list = list;
 	}
@@ -81,10 +89,12 @@ public class LivroDAO implements InterfaceDAO<Livro>{
 				sc.nextLine();
 				
 				serial.serializar(list, arq);
-				break;
+				System.out.println("Alterado com sucesso.");
+				return;
 			}
+			
 		}
-		System.out.println("Alterado com sucesso.");	
+		System.out.println("Livro não encontrado");
 	}
 
 	@Override
@@ -107,5 +117,39 @@ public class LivroDAO implements InterfaceDAO<Livro>{
 		System.out.println("Livro não encontrado");
 	}
 
-	
+
+	public String vender(Scanner sc, String cod) {
+		for(Livro l : list){
+			if(l.getCodigo().equals(cod)){
+				Integer qtde = l.getQtde();
+				if(qtde > 0){
+					
+					l.setQtde(qtde-1);
+					serial.serializar(list, arq);
+					Livro lv = l;
+					lv.setQtde(1);
+					listV.add(lv);
+					serial.serializar(listV, arqVenda);
+					return "Livro vendido com sucesso";
+				}else{
+					return "Sem saldo disponível em estoque";
+				}
+			}
+		}
+		return "Livro não encontrado";
+	}
+
+
+	public String alterarQtde(String cod, Scanner sc) {
+		for(Livro l : list){
+			if(l.getCodigo().equals(cod)){
+				System.out.println("Digite a quantidade: ");
+				l.setQtde(sc.nextInt());
+				sc.nextLine();
+				serial.serializar(list, arq);
+				return "Livro alterado com sucesso";
+			}
+		}
+		return "Livro não encontrado";
+	}
 }
