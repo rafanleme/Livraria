@@ -3,11 +3,11 @@ package br.com.livraria.entidades;
 import java.io.Serializable;
 import java.util.Date;
 
-public class VendaLivro extends Produto implements Serializable {
+public class VendaLivro extends Livro implements Serializable {
 	
 	
 	private Date dataCompra;
-	private Cliente cliente;
+	private Cliente cliente = new Cliente();
 	
 	public Date getDataCompra() {
 		return dataCompra;

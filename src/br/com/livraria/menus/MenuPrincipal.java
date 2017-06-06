@@ -22,7 +22,7 @@ public class MenuPrincipal {
 				MenuVenda mVen = new MenuVenda();
 				mVen.exibirMenu(sc);	
 			}
-			else if(opcao.equals("4")){
+			else if(opcao.equals("9")){
 				sc.close();
 				return;
 			}

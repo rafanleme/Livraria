@@ -10,17 +10,16 @@ import br.com.livraria.interfaces.InterfaceDAO;
 
 public class ClienteDAO implements InterfaceDAO<Cliente>{
 	
-	private List<Cliente> list, listV;
+	private List<Cliente> list;
 	private Serial<Cliente> serial;
 	private String arq;
 	private String arqVenda;
 	
 	public ClienteDAO() {
 		serial = new Serial<Cliente>();
-		list = new ArrayList<Cliente>();
 		arq = "arquivos/Clientes.dat";
 		list = serial.deserializa(arq);
-		
+		if(list == null) list = new ArrayList<Cliente>();
 	}
 	
 	public String getArq() {
@@ -37,9 +36,6 @@ public class ClienteDAO implements InterfaceDAO<Cliente>{
 		return list;
 	}
 	
-	public List<Cliente> getListV() {
-		return listV;
-	}
 	
 	public void setList(ArrayList<Cliente> list) {
 		this.list = list;
@@ -49,6 +45,18 @@ public class ClienteDAO implements InterfaceDAO<Cliente>{
 	public boolean setLista(List<Cliente> l) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+	
+	public void listar(){
+		if (!list.isEmpty()){		
+			for(Cliente l : list){
+				System.out.println("Código: " + l.getCodigo()
+						+ " Cliente: " + l.getNome()
+						+ " Telefone: " + l.getTelefone());
+			}
+		}else{
+			System.out.println("Nenhum Cliente cadastrado");
+		}
 	}
 
 	@Override

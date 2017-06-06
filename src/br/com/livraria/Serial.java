@@ -45,7 +45,7 @@ public class Serial<T> {
 			return list;
 		}
 		catch (IOException e) {
-			System.out.println("Erro ao ler o arquivo" + e);
+			//System.out.println("Erro ao ler o arquivo" + e);
 		}
 		return null;
 				

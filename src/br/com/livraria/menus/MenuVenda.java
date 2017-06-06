@@ -1,5 +1,6 @@
 package br.com.livraria.menus;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Scanner;
 
@@ -7,6 +8,7 @@ import br.com.livraria.dao.CafeDAO;
 import br.com.livraria.dao.LivroDAO;
 import br.com.livraria.entidades.Cafe;
 import br.com.livraria.entidades.Livro;
+import br.com.livraria.entidades.VendaLivro;
 
 public class MenuVenda {
 
@@ -46,12 +48,13 @@ public class MenuVenda {
 
 	private void listar(Scanner sc) {
 		LivroDAO ldao = new LivroDAO();
-		List<Livro> listL = ldao.getListV();
+		List<VendaLivro> listL = ldao.getListV();
+		SimpleDateFormat format = new SimpleDateFormat();
 		
 		System.out.println("Vendas de Livros");
 		if (!listL.isEmpty()){		
-			for(Livro l : listL){
-				System.out.println("Código: " + l.getCodigo()
+			for(VendaLivro l : listL){
+				System.out.println("Data: " + format.format(l.getDataCompra())
 						+ " Livro: " + l.getNome()
 						+ " Autor: " + l.getAutor()
 						+ " Preco: " + l.getPreco());

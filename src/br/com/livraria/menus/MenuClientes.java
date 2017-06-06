@@ -10,6 +10,8 @@ import br.com.livraria.entidades.Cliente;
 import br.com.livraria.entidades.Produto;
 
 public class MenuClientes {
+	
+	private ClienteDAO cDao = new ClienteDAO();
 
 	public void exibirMenu(Scanner sc) {
 		while(true){
@@ -37,8 +39,7 @@ public class MenuClientes {
 	private void excluir(Scanner sc) {
 		System.out.println("Codigo a excluir: ");
 		String cod = sc.nextLine();
-		ClienteDAO dao = new ClienteDAO();
-		dao.excluir(cod);
+		cDao.excluir(cod);
 	}
 
 	private void incluir(Scanner sc) {
@@ -55,30 +56,17 @@ public class MenuClientes {
 		System.out.println("Telefone: ");
 		c.setTelefone(sc.nextLine());
 		
-		ClienteDAO dao = new ClienteDAO();
-		dao.inserir(c);
+		cDao.inserir(c);
 		
 	}
 
 	private void listar(Scanner sc){
-		ClienteDAO dao = new ClienteDAO();
-		List<Cliente> list = dao.getList();
-		
-		if (!list.isEmpty()){		
-			for(Cliente l : list){
-				System.out.println("Código: " + l.getCodigo()
-						+ " Cliente: " + l.getNome()
-						+ " Telefone: " + l.getTelefone());
-			}
-		}else{
-			System.out.println("Nenhum Cliente cadastrado");
-		}
+		cDao.listar();	
 	}
 
 	private void alterar(Scanner sc){
 		System.out.println("Digite o código do Cliente");
 		String cod = sc.nextLine();
-		ClienteDAO dao = new ClienteDAO();
-		dao.alterar(cod, sc);
+		cDao.alterar(cod, sc);
 	}
 }

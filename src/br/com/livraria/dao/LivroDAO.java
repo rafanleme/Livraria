@@ -1,28 +1,35 @@
 package br.com.livraria.dao;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
 import br.com.livraria.Serial;
 import br.com.livraria.entidades.Livro;
+import br.com.livraria.entidades.VendaLivro;
 import br.com.livraria.interfaces.InterfaceDAO;
 
 public class LivroDAO implements InterfaceDAO<Livro>{
 	
-	private List<Livro> list, listV;
+	private List<Livro> list;
+	private List<VendaLivro> listV;
 	private Serial<Livro> serial;
+	private Serial<VendaLivro> serialV;
 	private String arq;
 	private String arqVenda;
 	
 	public LivroDAO() {
 		serial = new Serial<Livro>();
-		list = new ArrayList<Livro>();
+		serialV = new Serial<VendaLivro>();
 		arq = "arquivos/livros.dat";
 		list = serial.deserializa(arq);
+		if(list == null) list = new ArrayList<Livro>();
+		
 		arqVenda = "arquivos/vendaLivro.dat";
-		listV = new ArrayList<Livro>();
-		listV = serial.deserializa(arqVenda);
+		listV = serialV.deserializa(arqVenda);
+		if(listV == null) listV = new ArrayList<VendaLivro>();
 	}
 	
 	
@@ -50,7 +57,7 @@ public class LivroDAO implements InterfaceDAO<Livro>{
 		return list;
 	}
 	
-	public List<Livro> getListV() {
+	public List<VendaLivro> getListV() {
 		return listV;
 	}
 	
@@ -78,7 +85,7 @@ public class LivroDAO implements InterfaceDAO<Livro>{
 				l.setAutor(sc.nextLine());
 				
 				System.out.println("Editora: ");
-				l.setAutor(sc.nextLine());
+				l.setEditora(sc.nextLine());
 								
 				System.out.println("Preço: ");
 				l.setPreco(sc.nextDouble());
@@ -116,6 +123,18 @@ public class LivroDAO implements InterfaceDAO<Livro>{
 		}
 		System.out.println("Livro não encontrado");
 	}
+	
+	public VendaLivro getVendaLivro(Livro l) {
+		VendaLivro vl = new VendaLivro();
+		vl.setAutor(l.getAutor());
+		vl.setCategoria(l.getCategoria());
+		vl.setCodigo(l.getCodigo());
+		vl.setEditora(l.getEditora());
+		vl.setNome(l.getNome());
+		vl.setPreco(l.getPreco());
+		vl.setQtde(1);
+		return vl;
+	}
 
 
 	public String vender(Scanner sc, String cod) {
@@ -123,13 +142,17 @@ public class LivroDAO implements InterfaceDAO<Livro>{
 			if(l.getCodigo().equals(cod)){
 				Integer qtde = l.getQtde();
 				if(qtde > 0){
-					
 					l.setQtde(qtde-1);
 					serial.serializar(list, arq);
-					Livro lv = l;
-					lv.setQtde(1);
+					ClienteDAO cDao = new ClienteDAO();
+					cDao.listar();
+					VendaLivro lv = this.getVendaLivro(l);
+					System.out.println("Escolha um cliente (codigo): ");
+					lv.getCliente().setCodigo(sc.nextLine()); 
+					Date data = new Date();
+					lv.setDataCompra(data);
 					listV.add(lv);
-					serial.serializar(listV, arqVenda);
+					serialV.serializar(listV, arqVenda);
 					return "Livro vendido com sucesso";
 				}else{
 					return "Sem saldo disponível em estoque";
@@ -151,5 +174,21 @@ public class LivroDAO implements InterfaceDAO<Livro>{
 			}
 		}
 		return "Livro não encontrado";
+	}
+
+
+	public void listar() {
+		if (!list.isEmpty()){		
+			for(Livro l : list){
+				System.out.println("Código: " + l.getCodigo()
+						+ " Livro: " + l.getNome()
+						+ " Autor: " + l.getAutor()
+						+ " Qtde: " + l.getQtde()
+						+ " Preco: " + l.getPreco());
+						
+			}
+		}else{
+			System.out.println("Nenhum livro cadastrado");
+		}
 	}
 }

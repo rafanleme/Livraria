@@ -87,20 +87,8 @@ public class MenuLivros {
 
 	private void listar(Scanner sc){
 		LivroDAO dao = new LivroDAO();
-		List<Livro> list = dao.getList();
+		dao.listar();
 		
-		if (!list.isEmpty()){		
-			for(Livro l : list){
-				System.out.println("Código: " + l.getCodigo()
-						+ " Livro: " + l.getNome()
-						+ " Autor: " + l.getAutor()
-						+ " Qtde: " + l.getQtde()
-						+ " Preco: " + l.getPreco());
-						
-			}
-		}else{
-			System.out.println("Nenhum livro cadastrado");
-		}
 	}
 
 	private void alterar(Scanner sc){

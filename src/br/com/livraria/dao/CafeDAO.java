@@ -15,10 +15,10 @@ public class CafeDAO implements InterfaceDAO<Cafe>{
 	private String arqVend;
 	
 	public CafeDAO() {
-		list = new ArrayList<Cafe>();
 		serial = new Serial<Cafe>();
 		arqVend = "arquivos/vendaCafe.dat";
 		list = serial.deserializa(arqVend);
+		if(list == null) list = new ArrayList<Cafe>();
 	}
 	
 	
