@@ -65,12 +65,7 @@ public class LivroDAO implements InterfaceDAO<Livro>{
 		this.list = list;
 	}
 
-	@Override
-	public boolean setLista(List<Livro> l) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
+	
 	@Override
 	public void alterar(String cod, Scanner sc) {
 		for(Livro l : list){

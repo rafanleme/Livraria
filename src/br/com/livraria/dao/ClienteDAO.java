@@ -41,12 +41,6 @@ public class ClienteDAO implements InterfaceDAO<Cliente>{
 		this.list = list;
 	}
 
-	@Override
-	public boolean setLista(List<Cliente> l) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	
 	public void listar(){
 		if (!list.isEmpty()){		
 			for(Cliente l : list){
@@ -101,5 +95,13 @@ public class ClienteDAO implements InterfaceDAO<Cliente>{
 		System.out.println("Cliente não encontrado");
 	}
 
+	public Cliente buscaPorCodigo(String cod){
+		for(Cliente c : list){
+			if(c.getCodigo().equals(cod)){
+				return c;
+			}
+		}
+		return null;
+	}
 	
 }

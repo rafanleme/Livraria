@@ -7,11 +7,10 @@ public interface InterfaceDAO<T> {
 	
 	abstract List<T> getList();
 	
-	abstract boolean setLista(List<T> o);
-	
 	abstract void alterar(String s, Scanner sc);
 	
 	abstract void inserir(T o);
 	
 	abstract void excluir(String o);
+	
 }

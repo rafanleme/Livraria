@@ -10,7 +10,7 @@ public class MenuCadastro {
 			System.out.println("Menu de Cadastros");
 			System.out.println("1- Livros");
 			System.out.println("2- Clientes");
-			//System.out.println("3- Alterar");
+			System.out.println("3- Computadores");
 			//System.out.println("4- Excluir");
 			System.out.println("9- Voltar");
 			String opcao = sc.nextLine();
@@ -19,6 +19,9 @@ public class MenuCadastro {
 				ml.exibirMenu(sc);
 			}else if(opcao.equals("2")){
 				MenuClientes mc = new MenuClientes();
+				mc.exibirMenu(sc);
+			}else if(opcao.equals("3")){
+				MenuComputadores mc = new MenuComputadores();
 				mc.exibirMenu(sc);
 			}else if(opcao.equals("9")){
 				return;

@@ -11,6 +11,7 @@ public class MenuPrincipal {
 			System.out.println("Menu Principal");
 			System.out.println("1- Cadastro");
 			System.out.println("2- Vendas");
+			System.out.println("3- LanHouse");
 			System.out.println("9- Sair");
 			Scanner sc = new Scanner(System.in);
 			String opcao = sc.nextLine();
@@ -21,8 +22,10 @@ public class MenuPrincipal {
 			}else if(opcao.equals("2")){
 				MenuVenda mVen = new MenuVenda();
 				mVen.exibirMenu(sc);	
-			}
-			else if(opcao.equals("9")){
+			}else if(opcao.equals("3")){
+				MenuLanHouse mLan = new MenuLanHouse();
+				mLan.exibirMenu(sc);	
+			}else if(opcao.equals("9")){
 				sc.close();
 				return;
 			}

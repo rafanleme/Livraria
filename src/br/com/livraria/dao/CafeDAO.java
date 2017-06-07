@@ -51,12 +51,6 @@ public class CafeDAO implements InterfaceDAO<Cafe>{
 	}
 
 	@Override
-	public boolean setLista(List<Cafe> l) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
 	public void alterar(String cod, Scanner sc) {
 		for(Cafe l : list){
 			if(l.getCodigo().equals(cod)){
